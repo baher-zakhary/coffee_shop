@@ -1,0 +1,3 @@
+https://{{YOUR_DOMAIN}}/authorize?audience={{API_IDENTIFIER}}&response_type=token&client_id={{YOUR_CLIENT_ID}}&redirect_uri={{YOUR_CALLBACK_URI}}
+
+https://bahers-coffee-shop.us.auth0.com/authorize?audience=api&response_type=token&client_id=ax0ax8oUaSIHs6AmwIOZ4eLqcmJRjlz7&redirect_uri=http://localhost:4200
