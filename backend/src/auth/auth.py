@@ -56,7 +56,14 @@ def get_token_auth_header():
     return true otherwise
 '''
 def check_permissions(permission, payload):
-    raise Exception('Not Implemented')
+    permissions_key = 'permissions'
+    if permissions_key not in payload:
+        abort(400)
+
+    if permission not in payload[permissions_key]:
+        abort(403)
+    else:
+        return True
 
 '''
 @TODO implement verify_decode_jwt(token) method
