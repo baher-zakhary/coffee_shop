@@ -33,14 +33,24 @@ class AuthError(Exception):
 def get_token_auth_header():
     auth_key = 'Authorization'
    if auth_key not in request.headers:
-       abort(401)
+       raise AuthError({
+            'code': 'no_permissions',
+            'description': 'Permissions not included in Request headers.'
+        }, 401)
     
     header_sections = request.headers[auth_key].split(' ')
 
     if len(header_sections) != 2:
-        abort(401)
+        raise AuthError({
+            'code': 'malformed_token',
+            'description': 'The token received is malformed.'
+        },401)
     elif header_sections[0].lower() != 'bearer':
-        abort(401)
+        raise AuthError({
+            'code': 'invalid_token',
+            'description': 'The token type is invalid.'
+        }
+        , 401)
 
     return header_sections[1]
 
@@ -58,10 +68,16 @@ def get_token_auth_header():
 def check_permissions(permission, payload):
     permissions_key = 'permissions'
     if permissions_key not in payload:
-        abort(400)
+        raise AuthError({
+            'code': 'invalid_claims',
+            'description': 'Permissions not included in JWT.'
+        }, 400)
 
     if permission not in payload[permissions_key]:
-        abort(403)
+        raise AuthError({
+            'code': 'unauthorized',
+            'description': 'Permission not found.'
+        }, 403)
     else:
         return True
 
