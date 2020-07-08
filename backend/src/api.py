@@ -12,7 +12,7 @@ setup_db(app)
 CORS(app)
 
 '''
-@TODO uncomment the following line to initialize the datbase
+@ uncomment the following line to initialize the datbase
 !! NOTE THIS WILL DROP ALL RECORDS AND START YOUR DB FROM SCRATCH
 !! NOTE THIS MUST BE UNCOMMENTED ON FIRST RUN
 '''
@@ -27,6 +27,13 @@ CORS(app)
     returns status code 200 and json {"success": True, "drinks": drinks} where drinks is the list of drinks
         or appropriate status code indicating reason for failure
 '''
+@app.route('/api/drinks', methods=['GET'])
+def get_drinks():
+    drinks = Drink.query.all()
+    return jsonify({
+        "success": True,
+        "drinks": list(map(lambda drink: drink.short, drinks))
+    })
 
 
 '''
@@ -99,12 +106,33 @@ def unprocessable(error):
 '''
 
 '''
-@TODO implement error handler for 404
+@ implement error handler for 404
     error handler should conform to general task above 
 '''
-
+@app.errorhandler(404)
+    def not_found(error):
+        return jsonify({
+                "success": False,
+                "error": 404,
+                "message": "resource not found"
+            }), 404
 
 '''
 @TODO implement error handler for AuthError
     error handler should conform to general task above 
 '''
+@app.errorhandler(401)
+    def unauthorized(error):
+        return jsonify({
+            "success": False,
+            "error": 401,
+            "message": "Unauthorized"
+        }), 401
+
+@app.errorhandler(403)
+    def unauthorized(error):
+        return jsonify({
+            "success": False,
+            "error": 403,
+            "message": "Forbidden"
+        }), 403
