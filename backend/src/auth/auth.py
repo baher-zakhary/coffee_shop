@@ -32,7 +32,7 @@ class AuthError(Exception):
 '''
 def get_token_auth_header():
     auth_key = 'Authorization'
-   if auth_key not in request.headers:
+    if auth_key not in request.headers:
        raise AuthError({
             'code': 'no_permissions',
             'description': 'Permissions not included in Request headers.'
