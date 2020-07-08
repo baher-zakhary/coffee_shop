@@ -31,12 +31,16 @@ export class AuthService {
     return link;
   }
 
+  build_logout_link() {
+    return 'https://' + this.url + '.auth0.com/v2/logout?returnTo=http://localhost:4200/tabs/user-page';
+  }
+
   // invoked in app.component on load
   check_token_fragment() {
     // parse the fragment
     const fragment = window.location.hash.substr(1).split('&')[0].split('=');
     // check if the fragment includes the access token
-    if ( fragment[0] === 'access_token' ) {
+    if (fragment[0] === 'access_token') {
       // add the access token to the jwt
       this.token = fragment[1];
       // save jwts to localstore
@@ -72,6 +76,7 @@ export class AuthService {
     this.token = '';
     this.payload = null;
     this.set_jwt();
+    window.location.href = this.build_logout_link();
   }
 
   can(permission: string) {
