@@ -33,11 +33,12 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{host}}/drinks",
+							"raw": "{{host}}/{{audience}}/drinks",
 							"host": [
 								"{{host}}"
 							],
 							"path": [
+								"{{audience}}",
 								"drinks"
 							]
 						}
@@ -64,11 +65,12 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{host}}/drinks-detail",
+							"raw": "{{host}}/{{audience}}/drinks-detail",
 							"host": [
 								"{{host}}"
 							],
 							"path": [
+								"{{audience}}",
 								"drinks-detail"
 							]
 						}
@@ -95,11 +97,12 @@
 						"method": "POST",
 						"header": [],
 						"url": {
-							"raw": "{{host}}/drinks",
+							"raw": "{{host}}/{{audience}}/drinks",
 							"host": [
 								"{{host}}"
 							],
 							"path": [
+								"{{audience}}",
 								"drinks"
 							]
 						}
@@ -126,11 +129,12 @@
 						"method": "PATCH",
 						"header": [],
 						"url": {
-							"raw": "{{host}}/drinks/1",
+							"raw": "{{host}}/{{audience}}/drinks/1",
 							"host": [
 								"{{host}}"
 							],
 							"path": [
+								"{{audience}}",
 								"drinks",
 								"1"
 							]
@@ -158,11 +162,12 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "{{host}}/drinks/1",
+							"raw": "{{host}}/{{audience}}/drinks/1",
 							"host": [
 								"{{host}}"
 							],
 							"path": [
+								"{{audience}}",
 								"drinks",
 								"1"
 							]
@@ -201,11 +206,12 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{host}}/drinks",
+							"raw": "{{host}}/{{audience}}/drinks",
 							"host": [
 								"{{host}}"
 							],
 							"path": [
+								"{{audience}}",
 								"drinks"
 							]
 						}
@@ -232,11 +238,12 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{host}}/drinks-detail",
+							"raw": "{{host}}/{{audience}}/drinks-detail",
 							"host": [
 								"{{host}}"
 							],
 							"path": [
+								"{{audience}}",
 								"drinks-detail"
 							]
 						}
@@ -273,11 +280,12 @@
 						"method": "POST",
 						"header": [],
 						"url": {
-							"raw": "{{host}}/drinks",
+							"raw": "{{host}}/{{audience}}/drinks",
 							"host": [
 								"{{host}}"
 							],
 							"path": [
+								"{{audience}}",
 								"drinks"
 							]
 						}
@@ -304,11 +312,12 @@
 						"method": "PATCH",
 						"header": [],
 						"url": {
-							"raw": "{{host}}/drinks/1",
+							"raw": "{{host}}/{{audience}}/drinks/1",
 							"host": [
 								"{{host}}"
 							],
 							"path": [
+								"{{audience}}",
 								"drinks",
 								"1"
 							]
@@ -336,11 +345,12 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "{{host}}/drinks/1",
+							"raw": "{{host}}/{{audience}}/drinks/1",
 							"host": [
 								"{{host}}"
 							],
 							"path": [
+								"{{audience}}",
 								"drinks",
 								"1"
 							]
@@ -411,11 +421,12 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{host}}/drinks",
+							"raw": "{{host}}/{{audience}}/drinks",
 							"host": [
 								"{{host}}"
 							],
 							"path": [
+								"{{audience}}",
 								"drinks"
 							]
 						}
@@ -447,11 +458,12 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{host}}/drinks-detail",
+							"raw": "{{host}}/{{audience}}/drinks-detail",
 							"host": [
 								"{{host}}"
 							],
 							"path": [
+								"{{audience}}",
 								"drinks-detail"
 							]
 						}
@@ -489,11 +501,12 @@
 							"raw": "{\n    \"title\": \"Water3\",\n    \"recipe\": {\n        \"name\": \"Water\",\n        \"color\": \"blue\",\n        \"parts\": 1\n    }\n}"
 						},
 						"url": {
-							"raw": "{{host}}/drinks",
+							"raw": "{{host}}/{{audience}}/drinks",
 							"host": [
 								"{{host}}"
 							],
 							"path": [
+								"{{audience}}",
 								"drinks"
 							]
 						}
@@ -536,11 +549,12 @@
 							"raw": "{\n    \"title\": \"Water5\"\n}"
 						},
 						"url": {
-							"raw": "{{host}}/drinks/1",
+							"raw": "{{host}}/{{audience}}/drinks/1",
 							"host": [
 								"{{host}}"
 							],
 							"path": [
+								"{{audience}}",
 								"drinks",
 								"1"
 							]
@@ -568,11 +582,12 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "{{host}}/drinks/1",
+							"raw": "{{host}}/{{audience}}/drinks/1",
 							"host": [
 								"{{host}}"
 							],
 							"path": [
+								"{{audience}}",
 								"drinks",
 								"1"
 							]
@@ -640,10 +655,18 @@
 	],
 	"variable": [
 		{
-			"id": "7da0fa13-ecd9-4d7d-8e38-fde2c81cfdaf",
+			"id": "5570c805-dbdb-4714-b3ac-88dc2febb330",
 			"key": "host",
-			"value": "localhost:5000",
-			"type": "string"
+			"value": "localhost:5000"
+		},
+		{
+			"id": "33a75e1c-f19e-432e-9868-1dc29eb8d65a",
+			"key": "audience",
+			"value": "api"
+		},
+		{
+			"id": "d81909eb-6cde-4797-9f11-2f2d1082791f",
+			"value": ""
 		}
 	],
 	"protocolProfileBehavior": {}
