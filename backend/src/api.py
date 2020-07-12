@@ -37,7 +37,7 @@ def get_drinks():
 
 
 '''
-@TODO implement endpoint
+@ implement endpoint
     GET /drinks-detail
         it should require the 'get:drinks-detail' permission
         it should contain the drink.long() data representation
@@ -47,13 +47,7 @@ def get_drinks():
 @app.route('/api/drinks-detail', methods=['GET'])
 @requires_auth('get:drinks-detail')
 def get_drinks_detail(jwt):
-    try:
-        drinks = Drink.query.all()
-    except AuthError as e:
-        return jsonify({
-            'code': e.status_code,
-            'description': e.description
-        }, e.status_code)
+    drinks = Drink.query.all()
     return jsonify({
         "success": True,
         "drinks": list(map(lambda drink: drink.long(), drinks))
