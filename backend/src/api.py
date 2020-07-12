@@ -62,8 +62,27 @@ def get_drinks_detail(jwt):
     returns status code 200 and json {"success": True, "drinks": drink} where drink an array containing only the newly created drink
         or appropriate status code indicating reason for failure
 '''
-
-
+@app.route('/api/drinks', methods=['POST'])
+@requires_auth('post:drinks')
+def post_drinks(jwt):
+    body = request.get_json()
+    try:
+        title = body.get('title', None)
+        recipe = json.dumps(body.get('recipe', None))
+    except Exception:
+        abort(422)
+    if title is None or recipe is None:
+        abort(400)
+    try:
+        new_drink = Drink(title = title, recipe = recipe)
+        new_drink.insert()
+    except:
+        abort(422)
+    new_drink = Drink.query.filter(Drink.title == new_drink.title).first()
+    return jsonify({
+            "success": True,
+            "drinks": [new_drink.long()]
+            })
 '''
 @TODO implement endpoint
     PATCH /drinks/<id>
@@ -155,3 +174,25 @@ def unauthorized(error):
         "error": 403,
         "message": message
     }), 403
+
+@app.errorhandler(400)
+def bad_request(error):
+    message = "Bad request"
+    if error.description:
+        message = error.description
+    return jsonify({
+        "success": False,
+        "error": 400,
+        "message": message
+    }), 400
+
+@app.errorhandler(500)
+def unauthorized(error):
+    message = "Internal server error"
+    if error.description:
+        message = error.description
+    return jsonify({
+        "success": False,
+        "error": 500,
+        "message": message
+    }), 500
