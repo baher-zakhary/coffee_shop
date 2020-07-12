@@ -54,7 +54,7 @@ def get_drinks_detail(jwt):
     })
 
 '''
-@TODO implement endpoint
+@ implement endpoint
     POST /drinks
         it should create a new row in the drinks table
         it should require the 'post:drinks' permission
@@ -84,7 +84,7 @@ def post_drinks(jwt):
             "drinks": [new_drink.long()]
             })
 '''
-@TODO implement endpoint
+@ implement endpoint
     PATCH /drinks/<id>
         where <id> is the existing model id
         it should respond with a 404 error if <id> is not found
@@ -94,7 +94,27 @@ def post_drinks(jwt):
     returns status code 200 and json {"success": True, "drinks": drink} where drink an array containing only the updated drink
         or appropriate status code indicating reason for failure
 '''
-
+@app.route('/api/drinks/<int:id>', methods=['PATCH'])
+@requires_auth('patch:drinks')
+def patch_drinks(jwt, id):
+    drink = Drink.query.filter(Drink.id == id).first()
+    if drink is None:
+        abort(404)
+    try:
+        body = request.get_json()
+        title = body.get('title', None)
+        if title is not None:
+            drink.title = title
+        recipe = json.dumps(body.get('recipe', None))
+        if recipe is not None:
+            drink.recipe = recipe
+        drink.update()
+    except:
+        abort(422)
+    return jsonify({
+            "success": True,
+            "drinks": [drink.long()]
+            })
 
 '''
 @TODO implement endpoint
