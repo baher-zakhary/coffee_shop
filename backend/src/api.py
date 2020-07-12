@@ -20,7 +20,7 @@ CORS(app)
 
 ## ROUTES
 '''
-@TODO implement endpoint
+@ implement endpoint
     GET /drinks
         it should be a public endpoint
         it should contain only the drink.short() data representation
@@ -44,7 +44,20 @@ def get_drinks():
     returns status code 200 and json {"success": True, "drinks": drinks} where drinks is the list of drinks
         or appropriate status code indicating reason for failure
 '''
-
+@app.route('/api/drinks-detail', methods=['GET'])
+@requires_auth('get:drinks-detail')
+def get_drinks_detail(jwt):
+    try:
+        drinks = Drink.query.all()
+    except AuthError as e:
+        return jsonify({
+            'code': e.status_code,
+            'description': e.description
+        }, e.status_code)
+    return jsonify({
+        "success": True,
+        "drinks": list(map(lambda drink: drink.long(), drinks))
+    })
 
 '''
 @TODO implement endpoint
@@ -88,11 +101,14 @@ Example error handling for unprocessable entity
 '''
 @app.errorhandler(422)
 def unprocessable(error):
+    message = "unprocessable"
+    if error.description:
+        message = error.description
     return jsonify({
-                    "success": False, 
-                    "error": 422,
-                    "message": "unprocessable"
-                    }), 422
+            "success": False, 
+            "error": 422,
+            "message": message
+            }), 422
 
 '''
 @ implement error handlers using the @app.errorhandler(error) decorator
@@ -111,10 +127,13 @@ def unprocessable(error):
 '''
 @app.errorhandler(404)
 def not_found(error):
+    message = "resource not found"
+    if error.description:
+        message = error.description
     return jsonify({
             "success": False,
             "error": 404,
-            "message": "resource not found"
+            "message": message
         }), 404
 
 '''
@@ -123,16 +142,22 @@ def not_found(error):
 '''
 @app.errorhandler(401)
 def unauthorized(error):
+    message = "Unauthorized"
+    if error.description:
+        message = error.description
     return jsonify({
         "success": False,
         "error": 401,
-        "message": "Unauthorized"
+        "message": message
     }), 401
 
 @app.errorhandler(403)
 def unauthorized(error):
+    message = "Forbidden"
+    if error.description:
+        message = error.description
     return jsonify({
         "success": False,
         "error": 403,
-        "message": "Forbidden"
+        "message": message
     }), 403
