@@ -1,5 +1,5 @@
 import json
-from flask import request, _request_ctx_stack
+from flask import request, _request_ctx_stack, jsonify, abort
 from functools import wraps
 from jose import jwt
 from urllib.request import urlopen
@@ -97,7 +97,7 @@ def check_permissions(permission, payload):
 def verify_decode_jwt(token):
     # GET THE PUBLIC KEY FROM AUTH0
     jsonurl = urlopen('https://{}/.well-known/jwks.json'.format(AUTH0_DOMAIN))
-    jwks = json.loads(jsonurl.read())
+    jwks = json.loads(jsonurl.read().decode(jsonurl.headers.get_content_charset()))
     
     # GET THE DATA IN THE HEADER
     unverified_header = jwt.get_unverified_header(token)
@@ -167,9 +167,12 @@ def requires_auth(permission=''):
     def requires_auth_decorator(f):
         @wraps(f)
         def wrapper(*args, **kwargs):
-            token = get_token_auth_header()
-            payload = verify_decode_jwt(token)
-            check_permissions(permission, payload)
+            try:
+                token = get_token_auth_header()
+                payload = verify_decode_jwt(token)
+                check_permissions(permission, payload)
+            except AuthError as e:
+                abort(e.status_code, e.error['description'])
             return f(payload, *args, **kwargs)
 
         return wrapper
