@@ -4,9 +4,9 @@
 
 ### Installing Dependencies
 
-#### Python 3.7 (use Python 3.5.4 if 3.7 is not working when installing requirements)
+#### Python 3.5.4
 
-Follow instructions to install the latest version of python for your platform in the [python docs](https://docs.python.org/3/using/unix.html#getting-and-installing-the-latest-version-of-python)
+Download the required Python version from this link then install it [Download python](https://www.python.org/downloads/)
 
 #### Virtual Enviornment
 
