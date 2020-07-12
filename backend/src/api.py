@@ -117,7 +117,7 @@ def patch_drinks(jwt, id):
             })
 
 '''
-@TODO implement endpoint
+@ implement endpoint
     DELETE /drinks/<id>
         where <id> is the existing model id
         it should respond with a 404 error if <id> is not found
@@ -126,6 +126,20 @@ def patch_drinks(jwt, id):
     returns status code 200 and json {"success": True, "delete": id} where id is the id of the deleted record
         or appropriate status code indicating reason for failure
 '''
+@app.route('/api/drinks/<int:id>', methods=['DELETE'])
+@requires_auth('delete:drinks')
+def delete_drinks(jwt, id):
+    drink = Drink.query.filter(Drink.id == id).first()
+    if drink is None:
+        abort(404)
+    try:
+        drink.delete()
+    except:
+        abort(500)
+    return jsonify({
+                "success": True,
+                "delete": id
+            })
 
 
 ## Error Handling
